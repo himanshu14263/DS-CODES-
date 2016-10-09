@@ -24,19 +24,18 @@ int search(int arr[], int strt, int end, int value)
     }
     return i;
 }
-int n;
-int pIndex=n-1;
-Node* buildTree(int in[], int post[], int inStrt,int inEnd)
+
+Node* buildTree(int in[], int post[], int inStrt,int inEnd,int*pIndex)
 {
     if (inStrt > inEnd)
         return NULL;
-    Node *node = newNode(post[pIndex]);
-    (pIndex)--;
+    Node *node = newNode(post[*pIndex]);
+    (*pIndex)--;
     if (inStrt == inEnd)
         return node;
     int iIndex = search(in, inStrt, inEnd, node->data);
-    node->right= buildTree(in, post, iIndex+1, inEnd);
-    node->left = buildTree(in, post, inStrt, iIndex-1);
+    node->right= buildTree(in, post, iIndex+1, inEnd,(pIndex));
+    node->left = buildTree(in, post, inStrt, iIndex-1,(pIndex));
 
     return node;
 }
@@ -49,10 +48,12 @@ void inO(Node* node)
 }
 int main()
 {
+	int n;
 	cin>>n;
-    int in[]   = {4, 8, 2, 5, 1, 6, 3, 7};
-    int post[] = {8, 4, 5, 2, 6, 7, 3, 1};
-    Node *root = buildTree(in, post,0,n-1);
+	int pIndex=n-1;
+    int in[]   = {2,1,3};
+    int post[] = {2,3,1};
+    Node *root = buildTree(in, post,0,n-1,&pIndex);
     cout  << "Preorder of the constructed tree : \n";
     inO(root);
     return 0;
