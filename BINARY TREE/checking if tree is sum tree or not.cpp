@@ -32,11 +32,9 @@ int sum(node*root)
 
 bool func(node*root)
 {
+
+	if(root==NULL)return true;
 	if(root->left==NULL && root->right==NULL)return true;
-	if(root->left && root->right==NULL)
-		return root->data==root->left->data;
-	if(root->right && root->left==NULL)
-		return root->data==root->right->data;
 	else
 	{
 		return((root->data==sum(root->left)+sum(root->right))&&(func(root->left))&&(func(root->right)));
