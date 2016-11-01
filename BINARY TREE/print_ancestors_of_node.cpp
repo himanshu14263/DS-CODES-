@@ -18,6 +18,8 @@ bool print_ancestors(node*root,int value)
 {
 	if(root==NULL)return false;
 	if(root->data==value)return true;
+
+	// if either of the left and right node have required data then print that node's data
 	if(print_ancestors(root->left,value)||print_ancestors(root->right,value))
 	{
 		cout<<root->data<<" ";
