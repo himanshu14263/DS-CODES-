@@ -1,6 +1,6 @@
 // PROBLEM :: find the sum of the largest sum continuous array.
 
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 // METHOD 1 : USING KADANE'S ALGORITHM
