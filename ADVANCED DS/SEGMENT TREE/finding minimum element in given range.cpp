@@ -45,6 +45,30 @@ int query(int segTree[],int qlow ,int qhigh,int len)
 {
 	return queryUtil(segTree,qlow,qhigh,0,len-1,0);
 }
+
+void updateTreeUtil(int segTree[],int qlow,int qhigh,int low,int high,int delta,int pos)
+{
+
+			if(qhigh<low || qlow>high)
+				return;
+
+			if(low==high)
+			{
+				segTree[pos]+=delta;
+				return;
+			}
+
+			int mid = (low+high)/2;
+
+			updateTreeUtil(segTree,qlow,qhigh,low,mid,delta,2*pos+1);
+			updateTreeUtil(segTree,qlow,qhigh,mid+1,high,delta,2*pos+2);
+
+			segTree[pos]=min(segTree[2*pos+1],segTree[2*pos+2]);
+}
+void updateTree(int segTree[],int qlow,int qhigh,int low,int high,int delta)
+{
+	updateTreeUtil(segTree,qlow,qhigh,low,high-1,delta,0);
+}
 int main()
 {
 	int arr[]={-1,3,4,0,2,1};
@@ -70,5 +94,29 @@ int main()
 	int a,b;
 	cin>>a>>b;
 	cout<<query(segTree,a,b,n);
+
+	cout<<"\n";
+	for(int i=0;i<max_size;i++)
+		cout<<segTree[i]<<" ";
+	cout<<"\n";
+
+	cout<<"enter the range to update\n";
+	cin>>a>>b;
+	cout<<"enter incrementation value\n";
+	int x;
+	cin>>x;
+
+	updateTree(segTree,a,b,0,n,x);
+
+	cout<<"enter the range\n";
+		cin>>a>>b;
+		cout<<query(segTree,a,b,n);
+
+		cout<<"\n";
+			for(int i=0;i<max_size;i++)
+				cout<<segTree[i]<<" ";
+			cout<<"\n";
+
+
 
 }
